@@ -1,0 +1,70 @@
+#Here's the my first task of codetech it solutions
+#This the code of PASSWORD STRENGTH CHECKER.
+#in this code all formats are same like the other password 
+#chekers but, In htis i added some slum words to pass cheker
+
+
+import re
+
+def check_password_strength(password):
+    # Initialize score and feedback
+    score = 0
+    feedback = []
+
+    # Check length
+    if len(password) < 8:
+        feedback.append("Password is too short. It should be at least 8 characters long.")
+    elif len(password) >= 12:
+        score += 2
+        feedback.append("you can improve it by symbols!")
+    else:
+        score += 1
+
+    # Check for uppercase letters
+    if re.search(r"[A-Z]", password):
+        score += 1
+    else:
+        feedback.append("Add uppercase letters.")
+
+    # Check for lowercase letters
+    if re.search(r"[a-z]", password):
+        score += 1
+    else:
+        feedback.append("Add lowercase letters.")
+
+    # Check for numbers
+    if re.search(r"\d", password):
+        score += 1
+    else:
+        feedback.append("Add numbers.")
+
+    # Check for special characters
+    if re.search(r"[!@#$%^&*(),.?\":{}|<>]", password):
+        score += 1
+    else:
+        feedback.append("Add special characters.")
+
+    # Determine strength based on score
+    if score < 3:
+        strength = "Thike hai"
+    elif score < 5:
+        strength = "Aur aacha hosakta tha"
+    else:
+        strength = "Bhoth hard "
+
+    return strength, score, feedback
+
+# Test the function
+if __name__ == "__main__":
+    password = input("Enter a password to check its strength: ")
+    strength, score, feedback = check_password_strength(password)
+    
+    print(f"\nPassword Strength: {strength}")
+    print(f"Score: {score}/6")
+    
+    if feedback:
+        print("\nSuggestions for improvement:")
+        for suggestion in feedback:
+            print(f"- {suggestion}")
+    else:
+        print("\nTERA PASSWORD BHOT HARD HAI BHAI.")
